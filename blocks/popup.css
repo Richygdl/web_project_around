@@ -1,4 +1,4 @@
-.pop-up__edit {
+.pop-up {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,29 +13,29 @@
   opacity: 0;
   transition: opacity 0.2s;
 }
-.pop-up__edit.active {
+.pop-up.active {
   visibility: visible;
   opacity: 1;
 }
-.pop-up__edit-content {
+.pop-up__content {
   position: relative;
   background-color: white;
   border-radius: 10px;
   width: 430px;
   height: 330px;
 }
-.pop-up__edit-form {
+.pop-up__form {
   display: flex;
   flex-direction: column;
 }
-.pop-up__edit-header {
+.pop-up__header {
   width: 330px;
   margin: 34px 64px 0 36px;
   color: black;
   font-family: "Inter-black";
   font-size: 24px;
 }
-.pop-up__edit-input-name {
+.pop-up__input-name {
   max-width: 358px;
   max-height: 28px;
   font-size: 14;
@@ -47,7 +47,7 @@
   white-space: nowrap;
   overflow: hidden;
 }
-.pop-up__edit-input-about {
+.pop-up__input-about {
   max-width: 358px;
   max-height: 28px;
   font-size: 14;
@@ -59,7 +59,7 @@
   white-space: nowrap;
   overflow: hidden;
 }
-.pop-up__edit-button-save {
+.pop-up__button-save {
   background-color: black;
   width: 358px;
   height: 51px;
@@ -69,12 +69,12 @@
   border-radius: 5px;
   text-align: center;
 }
-.pop-up__edit-button-save:hover {
+.pop-up__button-save:hover {
   opacity: 60%;
   color: #ffffff;
 }
 
-.pop-up__edit-button-close {
+.pop-up__button-close {
   background-image: url("../images/Close\ Icon.png");
   background-size: contain;
   background-color: transparent;
@@ -88,22 +88,22 @@
   border: 0;
 }
 
-.pop-up__edit-button-close:hover {
+.pop-up__button-close:hover {
   opacity: 60%;
   color: #ffffff;
 }
 
 @media screen and (max-width: 425px) {
-  .pop-up__edit-content {
+  .pop-up__content {
     width: 282px;
     height: 322px;
   }
-  .pop-up__edit-button-save {
+  .pop-up__button-save {
     width: 238px;
     height: 46px;
     margin: 0 auto 0 auto;
   }
-  .pop-up__edit-button-close {
+  .pop-up__button-close {
     top: -33px;
     right: 0px;
   }

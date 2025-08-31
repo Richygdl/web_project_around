@@ -1,10 +1,10 @@
 //form CONST//
-const form = document.querySelector(".pop-up__edit-form");
-const inputName = document.querySelector(".pop-up__edit-input-name");
-const inputAbout = document.querySelector(".pop-up__edit-input-about");
+const form = document.querySelector(".pop-up__form");
+const inputName = document.querySelector(".pop-up__input-name");
+const inputAbout = document.querySelector(".pop-up__input-about");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__roll");
-const popupEdit = document.querySelector(".pop-up__edit");
+const popupEdit = document.querySelector(".pop-up");
 const editButton = document.querySelector(".profile__edit-button");
 const closeButton = document.querySelector(".pop-up__edit-button-close");
 //form events//
