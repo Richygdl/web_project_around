@@ -6,7 +6,7 @@ const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__roll");
 const popupEdit = document.querySelector(".pop-up");
 const editButton = document.querySelector(".profile__edit-button");
-const closeButton = document.querySelector(".pop-up__edit-button-close");
+const closeButton = document.querySelector(".pop-up__button-close");
 //form events//
 form.addEventListener("submit", function (event) {
   event.preventDefault(); // Evita que el formulario recargue la página
