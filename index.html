@@ -53,65 +53,7 @@
             />
           </button>
         </section>
-        <section class="photo-grid" id="photo-grid">
-          <div class="photo-grid__card">
-            <img
-              src="images/kirill-pershin.jpg"
-              alt="Yosemite"
-              class="photo-grid__image"
-            />
-            <p class="photo-grid__text">Valle de Yosemite</p>
-            <span class="photo-grid__heart">♡</span>
-          </div>
-          <div class="photo-grid__card">
-            <img
-              src="images/lago-looise.jpg"
-              alt="Lago Louise"
-              class="photo-grid__image"
-            />
-            <p class="photo-grid__text">Lago Louise</p>
-            <span class="photo-grid__heart">♡</span>
-          </div>
-          <div class="photo-grid__card">
-            <img
-              src="images/montañas-calvas.png"
-              alt="Montañas Calvas"
-              class="photo-grid__image"
-            />
-            <p class="photo-grid__text">Montañas Calvas</p>
-            <span class="photo-grid__heart">♡</span>
-          </div>
-
-          <div class="photo-grid__card">
-            <img
-              src="images/lateman.png"
-              alt="Latemar"
-              class="photo-grid__image"
-            />
-            <p class="photo-grid__text">Latemar</p>
-            <span class="photo-grid__heart">♡</span>
-          </div>
-
-          <div class="photo-grid__card">
-            <img
-              src="images/vanois-national.png"
-              alt="Vanois"
-              class="photo-grid__image"
-            />
-            <p class="photo-grid__text">Vanois National Park</p>
-            <span class="photo-grid__heart">♡</span>
-          </div>
-
-          <div class="photo-grid__card">
-            <img
-              src="images/braies.png"
-              alt="Braies"
-              class="photo-grid__image"
-            />
-            <p class="photo-grid__text">Lago di Braies</p>
-            <span class="photo-grid__heart">♡</span>
-          </div>
-        </section>
+        <section class="photo-grid" id="photo-grid"></section>
         <footer class="footer">© 2025 Around The U.S.</footer>
         <!-- //popUp// -->
 
@@ -136,6 +78,42 @@
               <button type="submit" class="pop-up__button-save">Guardar</button>
               <button type="button" class="pop-up__button-close"></button>
             </form>
+          </div>
+        </section>
+
+        <!-- PopUp cards -->
+        <section class="card-popup">
+          <div class="card-popup__content">
+            <form class="card-popup__form">
+              <label class="card-popup__header">Nuevo Lugar</label>
+              <input
+                type="text"
+                name="place-title"
+                class="card-popup__place-title"
+                placeholder="Título"
+                required
+              />
+              <input
+                type="url"
+                name="img-Url"
+                class="card-popup__img-Url"
+                placeholder="URL"
+                required
+              />
+              <button type="submit" class="card-popup__button-save">
+                Guardar
+              </button>
+              <button type="button" class="card-popup__button-close"></button>
+            </form>
+          </div>
+        </section>
+        <section class="image-popup">
+          <div class="image-popup__content">
+            <div class="image-popup__image-wrapper">
+              <img src="" alt="" class="image-popup__image" />
+              <button type="button" class="image-popup__button-close"></button>
+              <p class="image-popup__caption"></p>
+            </div>
           </div>
         </section>
       </main>
