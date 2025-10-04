@@ -1,3 +1,4 @@
+import { enableValidation } from "./validate.js";
 // Selección de elementos del DOM
 const form = document.querySelector(".pop-up__form");
 const inputName = document.querySelector(".pop-up__input-name");
@@ -174,4 +175,15 @@ cardForm.addEventListener("submit", function (event) {
   // Limpiar el formulario y cerrar el popup
   cardForm.reset();
   cardPopup.classList.remove("active");
+});
+
+// Validación pop-ups
+enableValidation({
+  formSelector: ".pop-up__form, .card-popup__form",
+  inputSelector:
+    ".pop-up__input-name, .pop-up__input-about, .card-popup__place-title, .card-popup__img-Url",
+  submitButtonSelector: ".pop-up__button-save, .card-popup__button-save",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
 });

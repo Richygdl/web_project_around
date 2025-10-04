@@ -59,7 +59,7 @@
 
         <section class="pop-up">
           <div class="pop-up__content">
-            <form class="pop-up__form">
+            <form class="pop-up__form" novalidate>
               <label class="pop-up__header">Editar perfil</label>
               <input
                 type="text"
@@ -67,14 +67,21 @@
                 class="pop-up__input-name"
                 placeholder="Nombre"
                 required
+                minlength="2"
+                maxlength="40"
               />
+              <span id="error-name" class="pop-up__error"></span>
               <input
                 type="text"
                 name="about"
                 class="pop-up__input-about"
                 placeholder="Acerca de mi"
                 required
+                minlength="2"
+                maxlength="200"
               />
+              <span id="error-about" class="pop-up__error"></span>
+
               <button type="submit" class="pop-up__button-save">Guardar</button>
               <button type="button" class="pop-up__button-close"></button>
             </form>
@@ -82,9 +89,9 @@
         </section>
 
         <!-- PopUp cards -->
-        <section class="card-popup">
+        <section id="popup" class="card-popup">
           <div class="card-popup__content">
-            <form class="card-popup__form">
+            <form class="card-popup__form" novalidate>
               <label class="card-popup__header">Nuevo Lugar</label>
               <input
                 type="text"
@@ -92,7 +99,13 @@
                 class="card-popup__place-title"
                 placeholder="Título"
                 required
+                minlength="2"
+                maxlength="30"
               />
+              <span id="error-place-title" class="pop-up__error"
+                >Por favor, rellena este campo.</span
+              >
+
               <input
                 type="url"
                 name="img-Url"
@@ -100,6 +113,10 @@
                 placeholder="URL"
                 required
               />
+              <span id="error-img-Url" class="pop-up__error"
+                >Por favor, introduce una dirección web.</span
+              >
+
               <button type="submit" class="card-popup__button-save">
                 Guardar
               </button>
@@ -118,6 +135,6 @@
         </section>
       </main>
     </div>
-    <script src="./scripts/index.js"></script>
+    <script src="./scripts/index.js" type="module"></script>
   </body>
 </html>
