@@ -1,5 +1,5 @@
 import { enableValidation } from "./validate.js";
-// Selección de elementos del DOM
+// Selección de elementos del DOM Pop Up
 const form = document.querySelector(".pop-up__form");
 const inputName = document.querySelector(".pop-up__input-name");
 const inputAbout = document.querySelector(".pop-up__input-about");
@@ -146,19 +146,19 @@ form.addEventListener("submit", function (event) {
 
 // Abrir y cerrar el popup
 editButton.addEventListener("click", () => {
-  popupEdit.classList.add("active");
+  popupEdit.showModal();
 });
 closeButton.addEventListener("click", () => {
-  popupEdit.classList.remove("active");
+  popupEdit.close();
 });
 
 //Card//
 openCardPopupButton.addEventListener("click", () => {
-  cardPopup.classList.add("active");
+  cardPopup.showModal();
 });
 
 closeCardPopupButton.addEventListener("click", () => {
-  cardPopup.classList.remove("active");
+  cardPopup.close();
 });
 
 // Evento para enviar el formulario de nueva card

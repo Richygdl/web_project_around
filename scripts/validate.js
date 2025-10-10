@@ -56,6 +56,11 @@ function setEventListeners(form, config) {
       toggleButtonState(inputList, form, config);
     });
   });
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    // Solo envía si todos los campos son válidos (opcional, según tu lógica)
+  });
 }
 
 export function enableValidation(config) {

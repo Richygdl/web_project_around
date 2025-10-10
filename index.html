@@ -57,12 +57,16 @@
         <footer class="footer">© 2025 Around The U.S.</footer>
         <!-- //popUp// -->
 
-        <section class="pop-up">
+        <dialog class="pop-up">
           <div class="pop-up__content">
+            <button type="button" class="pop-up__button-close"></button>
             <form class="pop-up__form" novalidate>
-              <label class="pop-up__header">Editar perfil</label>
+              <label class="pop-up__header" for="input-name"
+                >Editar perfil</label
+              >
               <input
                 type="text"
+                id="input-name"
                 name="name"
                 class="pop-up__input-name"
                 placeholder="Nombre"
@@ -83,14 +87,15 @@
               <span id="error-about" class="pop-up__error"></span>
 
               <button type="submit" class="pop-up__button-save">Guardar</button>
-              <button type="button" class="pop-up__button-close"></button>
             </form>
           </div>
-        </section>
+        </dialog>
 
         <!-- PopUp cards -->
-        <section id="popup" class="card-popup">
+        <dialog id="popup" class="card-popup">
           <div class="card-popup__content">
+            <button type="button" class="card-popup__button-close"></button>
+
             <form class="card-popup__form" novalidate>
               <label class="card-popup__header">Nuevo Lugar</label>
               <input
@@ -102,9 +107,7 @@
                 minlength="2"
                 maxlength="30"
               />
-              <span id="error-place-title" class="pop-up__error"
-                >Por favor, rellena este campo.</span
-              >
+              <span id="error-place-title" class="pop-up__error"></span>
 
               <input
                 type="url"
@@ -113,17 +116,14 @@
                 placeholder="URL"
                 required
               />
-              <span id="error-img-Url" class="pop-up__error"
-                >Por favor, introduce una dirección web.</span
-              >
+              <span id="error-img-Url" class="pop-up__error"></span>
 
               <button type="submit" class="card-popup__button-save">
                 Guardar
               </button>
-              <button type="button" class="card-popup__button-close"></button>
             </form>
           </div>
-        </section>
+        </dialog>
         <section class="image-popup">
           <div class="image-popup__content">
             <div class="image-popup__image-wrapper">
