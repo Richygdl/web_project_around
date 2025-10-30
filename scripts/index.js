@@ -91,7 +91,7 @@ function createCard(card) {
 
   cardElement.appendChild(imageElement);
   cardElement.appendChild(textElement);
-  cardElement.appendChild(trashIcon); // Agrega el ícono de eliminar aquí
+  cardElement.appendChild(trashIcon);
   cardElement.appendChild(heartElement);
 
   return cardElement;
