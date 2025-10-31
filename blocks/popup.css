@@ -1,5 +1,6 @@
 .pop-up,
 .card-popup {
+  position: relative; /* Agregado para que el botón se posicione relativo al dialog */
   padding: 0;
   border-radius: 10px;
   border: none;
@@ -9,7 +10,7 @@
   background: rgba(0, 0, 0, 0.5);
   max-width: 100vw;
   max-height: 100vh;
-  overflow: hidden;
+  overflow: visible; /* Cambiado a visible para que el botón se vea fuera */
 }
 
 .pop-up:not([open]),
@@ -103,20 +104,21 @@
 .card-popup__button-close {
   background-image: url("../images/Close Icon.png");
   background-size: contain;
-  background-color: black;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
   position: absolute;
-  top: 4px;
-  left: 399px;
+  top: -33px;
+  right: -33px;
   height: 26px;
   width: 26px;
-  /* z-index: 2; */
-
+  border: 0;
+  z-index: 10;
   cursor: pointer;
 }
 .pop-up__button-close:hover,
 .card-popup__button-close:hover {
   opacity: 60%;
-  color: #ffffff;
 }
 
 .pop-up__error,
@@ -153,7 +155,7 @@
   }
   .pop-up__button-close,
   .card-popup__button-close {
-    top: 4px;
-    left: 254px;
+    top: -33px;
+    right: -33px;
   }
 }

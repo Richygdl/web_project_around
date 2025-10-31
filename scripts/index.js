@@ -1,4 +1,7 @@
-import { enableValidation } from "./validate.js";
+import { FormValidator } from "./FormValidator.js";
+import { Card } from "./card.js";
+import { openDialog, closeDialog, attachDialogHandlers } from "./utils.js";
+
 // Selección de elementos del DOM Pop Up
 const form = document.querySelector(".pop-up__form");
 const inputName = document.querySelector(".pop-up__input-name");
@@ -22,7 +25,6 @@ const closeCardPopupButton = document.querySelector(
 
 // Selección de elementos del DOM para el popup de imagen
 const imagePopup = document.querySelector(".image-popup");
-const imagePopupContent = document.querySelector(".image-popup__content");
 const imagePopupImage = document.querySelector(".image-popup__image");
 const imagePopupCaption = document.querySelector(".image-popup__caption");
 const imagePopupClose = document.querySelector(".image-popup__button-close");
@@ -55,76 +57,36 @@ const initialCards = [
   },
 ];
 
-// Función para crear una card
-function createCard(card) {
-  const cardElement = document.createElement("div");
-  cardElement.classList.add("photo-grid__card");
-
-  const imageElement = document.createElement("img");
-  imageElement.src = card.link;
-  imageElement.alt = card.name;
-  imageElement.classList.add("photo-grid__image");
-
-  const textElement = document.createElement("p");
-  textElement.classList.add("photo-grid__text");
-  textElement.textContent = card.name;
-
-  // Ícono de eliminar (trash)
-  const trashIcon = document.createElement("img");
-  trashIcon.src = "images/Trash.png";
-  trashIcon.alt = "Eliminar";
-  trashIcon.classList.add("photo-grid__trash");
-  trashIcon.style.cursor = "pointer";
-  trashIcon.addEventListener("click", () => {
-    cardElement.remove();
-  });
-
-  const heartElement = document.createElement("span");
-  heartElement.classList.add("photo-grid__heart");
-  heartElement.textContent = "♡";
-  heartElement.addEventListener("click", () => {
-    heartElement.classList.toggle("liked");
-    heartElement.textContent = heartElement.classList.contains("liked")
-      ? "♥"
-      : "♡";
-  });
-
-  cardElement.appendChild(imageElement);
-  cardElement.appendChild(textElement);
-  cardElement.appendChild(trashIcon);
-  cardElement.appendChild(heartElement);
-
-  return cardElement;
-}
-// Renderizar las cards iniciales
+// // Renderizar las cards iniciales
 initialCards.forEach((card) => {
-  photoGrid.appendChild(createCard(card));
+  const node = new Card(card, "#card-template").getCard();
+  photoGrid.insertAdjacentElement("beforeend", node); // evita appendChild
 });
 
 // Función para abrir el popup de imagen
 function openImagePopup(src, alt) {
-  imagePopupImage.src = src;
-  imagePopupImage.alt = alt;
-  imagePopupCaption.textContent = alt;
-  imagePopup.classList.add("active");
+  openDialog(imagePopup, {
+    src,
+    alt,
+    imageEl: imagePopupImage,
+    captionEl: imagePopupCaption,
+  });
 }
 
-// Evento para cerrar el popup de imagen
-imagePopupClose.addEventListener("click", () => {
-  imagePopup.classList.remove("active");
-  imagePopupImage.src = "";
-  imagePopupImage.alt = "";
-  imagePopupCaption.textContent = "";
+// registrar handlers para dialog imagen
+attachDialogHandlers(document.querySelector(".image-popup"), {
+  closeButton: document.querySelector(".image-popup__button-close"),
+  imageWrapperSelector: ".image-popup__image-wrapper",
 });
 
-// Cerrar popup al hacer click fuera del contenido
-imagePopup.addEventListener("click", (e) => {
-  if (e.target === imagePopup) {
-    imagePopup.classList.remove("active");
-    imagePopupImage.src = "";
-    imagePopupImage.alt = "";
-    imagePopupCaption.textContent = "";
-  }
+// registrar handlers para dialog de perfil
+attachDialogHandlers(popupEdit, {
+  closeButton: closeButton,
+});
+
+// registrar handlers para dialog de nueva card
+attachDialogHandlers(cardPopup, {
+  closeButton: closeCardPopupButton,
 });
 
 // Delegación de eventos para abrir el popup al hacer click en una imagen de card
@@ -141,15 +103,11 @@ form.addEventListener("submit", function (event) {
   event.preventDefault();
   profileName.textContent = inputName.value;
   profileAbout.textContent = inputAbout.value;
-  popupEdit.classList.remove("active");
+  closeDialog(popupEdit);
 });
-
 // Abrir y cerrar el popup
 editButton.addEventListener("click", () => {
   popupEdit.showModal();
-});
-closeButton.addEventListener("click", () => {
-  popupEdit.close();
 });
 
 //Card//
@@ -157,33 +115,36 @@ openCardPopupButton.addEventListener("click", () => {
   cardPopup.showModal();
 });
 
-closeCardPopupButton.addEventListener("click", () => {
-  cardPopup.close();
-});
-
 // Evento para enviar el formulario de nueva card
 cardForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  // Crear la nueva card con los valores del formulario
   const newCard = {
     name: cardInputTitle.value,
     link: cardInputUrl.value,
   };
-  photoGrid.prepend(createCard(newCard)); // Agrega la nueva card al inicio
 
-  // Limpiar el formulario y cerrar el popup
+  const newNode = new Card(newCard, "#card-template").getCard();
+  photoGrid.insertAdjacentElement("afterbegin", newNode); // evita prepend/appendChild
+
   cardForm.reset();
-  cardPopup.classList.remove("active");
+  closeDialog(cardPopup);
 });
 
-// Validación pop-ups
-enableValidation({
-  formSelector: ".pop-up__form, .card-popup__form",
+// Configuración de validación
+const validationConfig = {
   inputSelector:
     ".pop-up__input-name, .pop-up__input-about, .card-popup__place-title, .card-popup__img-Url",
   submitButtonSelector: ".pop-up__button-save, .card-popup__button-save",
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
-});
+};
+
+// Crear instancia de FormValidator para el formulario de perfil
+const profileFormValidator = new FormValidator(validationConfig, form);
+profileFormValidator.enableValidation();
+
+// Crear instancia de FormValidator para el formulario de nueva card
+const cardFormValidator = new FormValidator(validationConfig, cardForm);
+cardFormValidator.enableValidation();

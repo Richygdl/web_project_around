@@ -54,12 +54,25 @@
           </button>
         </section>
         <section class="photo-grid" id="photo-grid"></section>
+
+        <template id="card-template">
+          <div class="photo-grid__card">
+            <img class="photo-grid__image" src="" alt="" loading="lazy" />
+            <p class="photo-grid__text"></p>
+            <img
+              class="photo-grid__trash"
+              src="images/Trash.png"
+              alt="Eliminar"
+            />
+            <span class="photo-grid__heart">♡</span>
+          </div>
+        </template>
         <footer class="footer">© 2025 Around The U.S.</footer>
         <!-- //popUp// -->
 
         <dialog class="pop-up">
+          <button type="button" class="pop-up__button-close"></button>
           <div class="pop-up__content">
-            <button type="button" class="pop-up__button-close"></button>
             <form class="pop-up__form" novalidate>
               <label class="pop-up__header" for="input-name"
                 >Editar perfil</label
@@ -93,9 +106,8 @@
 
         <!-- PopUp cards -->
         <dialog id="popup" class="card-popup">
+          <button type="button" class="card-popup__button-close"></button>
           <div class="card-popup__content">
-            <button type="button" class="card-popup__button-close"></button>
-
             <form class="card-popup__form" novalidate>
               <label class="card-popup__header">Nuevo Lugar</label>
               <input
@@ -124,7 +136,7 @@
             </form>
           </div>
         </dialog>
-        <section class="image-popup">
+        <dialog class="image-popup">
           <div class="image-popup__content">
             <div class="image-popup__image-wrapper">
               <img src="" alt="" class="image-popup__image" />
@@ -132,7 +144,7 @@
               <p class="image-popup__caption"></p>
             </div>
           </div>
-        </section>
+        </dialog>
       </main>
     </div>
     <script src="./scripts/index.js" type="module"></script>

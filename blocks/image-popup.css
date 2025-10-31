@@ -13,9 +13,17 @@
   opacity: 0;
   transition: opacity 0.2s;
 }
-.image-popup.active {
+
+/* Mostrar cuando tiene la clase .active O el atributo [open] (showModal) */
+.image-popup.active,
+.image-popup[open] {
   visibility: visible;
   opacity: 1;
+}
+
+/* Backdrop del dialog nativo */
+.image-popup::backdrop {
+  background: rgba(0, 0, 0, 0.6);
 }
 .image-popup__content {
   position: relative;
