@@ -1,0 +1,27 @@
+import Popup from "./Popup";
+
+export default class PopUpWithForm extends Popup {
+  constructor(popUpSelector) {
+    super(popUpSelector);
+  }
+  _getInputValues() {
+    const inputValues = {};
+    const inputs = Array.from(
+      this._popUpSelector.querySelectorAll("form_input")
+    );
+    inputs.forEach((input) => {
+      inputValues[input.name] = input.value;
+    });
+    return inputValues;
+  }
+  setEventListeners() {
+    if (typeof super.setEventListeners === "function") {
+      super.setEventListeners();
+    }
+    const inputValue = {};
+    const inputs = Array.from(this._popUpSelector.querySelectorAll("input"));
+    inputs.forEach((input) => {
+      inputValue[input.name] = input.value;
+    });
+  }
+}

@@ -71,7 +71,13 @@
         <!-- //popUp// -->
 
         <dialog class="pop-up">
-          <button type="button" class="pop-up__button-close"></button>
+          <form method="dialog">
+            <button
+              class="pop-up__button-close"
+              aria-label="Cerrar"
+              value="cancel"
+            ></button>
+          </form>
           <div class="pop-up__content">
             <form class="pop-up__form" novalidate>
               <label class="pop-up__header" for="input-name"
@@ -81,7 +87,7 @@
                 type="text"
                 id="input-name"
                 name="name"
-                class="pop-up__input-name"
+                class="form_input pop-up__input-name"
                 placeholder="Nombre"
                 required
                 minlength="2"
@@ -91,7 +97,7 @@
               <input
                 type="text"
                 name="about"
-                class="pop-up__input-about"
+                class="form_input pop-up__input-about"
                 placeholder="Acerca de mi"
                 required
                 minlength="2"
@@ -106,14 +112,20 @@
 
         <!-- PopUp cards -->
         <dialog id="popup" class="card-popup">
-          <button type="button" class="card-popup__button-close"></button>
+          <form method="dialog">
+            <button
+              class="card-popup__button-close"
+              aria-label="Cerrar"
+              value="cancel"
+            ></button>
+          </form>
           <div class="card-popup__content">
             <form class="card-popup__form" novalidate>
               <label class="card-popup__header">Nuevo Lugar</label>
               <input
                 type="text"
                 name="place-title"
-                class="card-popup__place-title"
+                class="form_input card-popup__place-title"
                 placeholder="Título"
                 required
                 minlength="2"
@@ -124,7 +136,7 @@
               <input
                 type="url"
                 name="img-Url"
-                class="card-popup__img-Url"
+                class="form_input card-popup__img-Url"
                 placeholder="URL"
                 required
               />
@@ -140,7 +152,13 @@
           <div class="image-popup__content">
             <div class="image-popup__image-wrapper">
               <img src="" alt="" class="image-popup__image" />
-              <button type="button" class="image-popup__button-close"></button>
+              <form method="dialog">
+                <button
+                  class="image-popup__button-close"
+                  aria-label="Cerrar"
+                  value="close"
+                ></button>
+              </form>
               <p class="image-popup__caption"></p>
             </div>
           </div>

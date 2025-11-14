@@ -1,6 +1,14 @@
 import { FormValidator } from "./FormValidator.js";
-import { Card } from "./card.js";
-import { openDialog, closeDialog, attachDialogHandlers } from "./utils.js";
+import { Card } from "../components/card.js";
+import { Popup } from "../components/Popup.js";
+import { PopupWithImage } from "../components/PopUpWithImage.js";
+import { UserInfo } from "../components/UserInfo.js";
+import { Section } from "../components/Section.js";
+
+// Instancias de Popup
+const editProfilePopup = new Popup(".pop-up");
+const newCardPopup = new Popup(".card-popup");
+const imagePopupInstance = new PopupWithImage(".image-popup");
 
 // Selección de elementos del DOM Pop Up
 const form = document.querySelector(".pop-up__form");
@@ -8,26 +16,14 @@ const inputName = document.querySelector(".pop-up__input-name");
 const inputAbout = document.querySelector(".pop-up__input-about");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__roll");
-const popupEdit = document.querySelector(".pop-up");
 const editButton = document.querySelector(".profile__edit-button");
-const closeButton = document.querySelector(".pop-up__button-close");
 const photoGrid = document.querySelector("#photo-grid");
 
 // Selección de elementos del DOM para el popup de nueva card
-const cardPopup = document.querySelector(".card-popup");
 const cardForm = document.querySelector(".card-popup__form");
 const cardInputTitle = document.querySelector(".card-popup__place-title");
 const cardInputUrl = document.querySelector(".card-popup__img-Url");
 const openCardPopupButton = document.querySelector(".profile__add-button");
-const closeCardPopupButton = document.querySelector(
-  ".card-popup__button-close"
-);
-
-// Selección de elementos del DOM para el popup de imagen
-const imagePopup = document.querySelector(".image-popup");
-const imagePopupImage = document.querySelector(".image-popup__image");
-const imagePopupCaption = document.querySelector(".image-popup__caption");
-const imagePopupClose = document.querySelector(".image-popup__button-close");
 
 // Datos iniciales de las cards
 const initialCards = [
@@ -57,78 +53,68 @@ const initialCards = [
   },
 ];
 
-// // Renderizar las cards iniciales
-initialCards.forEach((card) => {
-  const node = new Card(card, "#card-template").getCard();
-  photoGrid.insertAdjacentElement("beforeend", node); // evita appendChild
-});
-
-// Función para abrir el popup de imagen
-function openImagePopup(src, alt) {
-  openDialog(imagePopup, {
-    src,
-    alt,
-    imageEl: imagePopupImage,
-    captionEl: imagePopupCaption,
+// Función que crea y retorna el elemento de cada card
+function createCard(cardData) {
+  const card = new Card(cardData, "#card-template", (data) => {
+    // Esta función se ejecuta cuando se hace clic en la imagen de la card
+    imagePopupInstance.open({ src: data.link, alt: data.name });
   });
+  return card.getCard();
 }
 
-// registrar handlers para dialog imagen
-attachDialogHandlers(document.querySelector(".image-popup"), {
-  closeButton: document.querySelector(".image-popup__button-close"),
-  imageWrapperSelector: ".image-popup__image-wrapper",
+// Usa la clase Section para renderizar las cards iniciales
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: createCard,
+  },
+  "#photo-grid"
+);
+
+// Renderizar todas las cards iniciales
+cardSection.renderItems();
+
+const userInfo = new UserInfo({
+  nameSelector: ".profile__name",
+  jobSelector: ".profile__roll",
 });
 
-// registrar handlers para dialog de perfil
-attachDialogHandlers(popupEdit, {
-  closeButton: closeButton,
-});
-
-// registrar handlers para dialog de nueva card
-attachDialogHandlers(cardPopup, {
-  closeButton: closeCardPopupButton,
-});
-
-// Delegación de eventos para abrir el popup al hacer click en una imagen de card
-photoGrid.addEventListener("click", (e) => {
-  if (e.target.classList.contains("photo-grid__image")) {
-    const cardElement = e.target.closest(".photo-grid__card");
-    const cardTitle =
-      cardElement.querySelector(".photo-grid__text").textContent;
-    openImagePopup(e.target.src, cardTitle);
-  }
-});
 // Evento para editar perfil
 form.addEventListener("submit", function (event) {
   event.preventDefault();
-  profileName.textContent = inputName.value;
-  profileAbout.textContent = inputAbout.value;
-  closeDialog(popupEdit);
+  userInfo.setUserInfo({
+    name: inputName.value,
+    job: inputAbout.value,
+  });
+  editProfilePopup.close();
 });
-// Abrir y cerrar el popup
+
+// Abrir el popup de perfil
 editButton.addEventListener("click", () => {
-  popupEdit.showModal();
+  const currentUserInfo = userInfo.getUserInfo();
+  inputName.value = currentUserInfo.name;
+  inputAbout.value = currentUserInfo.job;
+  editProfilePopup.open();
 });
 
-//Card//
+//Abrir el popup de place//
 openCardPopupButton.addEventListener("click", () => {
-  cardPopup.showModal();
+  newCardPopup.open();
 });
 
-// Evento para enviar el formulario de nueva card
+// Evento para enviar el formulario de nuevo place
 cardForm.addEventListener("submit", function (event) {
   event.preventDefault();
-
   const newCard = {
     name: cardInputTitle.value,
     link: cardInputUrl.value,
   };
 
-  const newNode = new Card(newCard, "#card-template").getCard();
-  photoGrid.insertAdjacentElement("afterbegin", newNode); // evita prepend/appendChild
+  const newCardElement = createCard(newCard);
+  cardSection.addItem(newCardElement); // Usar el método addItem de Section
 
   cardForm.reset();
-  closeDialog(cardPopup);
+  newCardPopup.close();
 });
 
 // Configuración de validación
