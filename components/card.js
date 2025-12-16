@@ -1,18 +1,24 @@
 export class Card {
   constructor(
-    { name = "", link = "" } = {},
+    { name = "", link = "", _id = "", isLiked = false } = {},
     template = "#card-template",
-    handleCardClick
+    handleCardClick,
+    handleLikeClick,
+    handleDeleteClick
   ) {
     this._name = name;
     this._link = link;
+    this._id = _id;
+    this._isLiked = isLiked;
     this._template = template;
     this._handleCardClick = handleCardClick; // Guardar la función para abrir el popup
+    this._handleLikeClick = handleLikeClick; // Guardar la función para manejar like
+    this._handleDeleteClick = handleDeleteClick; // Guardar la función para eliminar
 
     this._element = this._cloneTemplate();
 
     this._onTrashClick = () => this._handleTrashClick();
-    this._onLikeClick = (evt) => this._handleLikeClick(evt);
+    this._onLikeClick = (evt) => this._handleLike(evt);
     this._onImageClick = () => this._handleImageClick(); // Nuevo listener para la imagen
 
     this._setContent();
@@ -36,6 +42,18 @@ export class Card {
     }
     const text = this._element.querySelector(".photo-grid__text");
     if (text) text.textContent = this._name;
+
+    // Actualizar el icono del corazón según isLiked
+    const heart = this._element.querySelector(".photo-grid__heart");
+    if (heart) {
+      if (this._isLiked) {
+        heart.classList.add("liked");
+        heart.textContent = "♥";
+      } else {
+        heart.classList.remove("liked");
+        heart.textContent = "♡";
+      }
+    }
   }
 
   _setEventListeners() {
@@ -49,22 +67,27 @@ export class Card {
   }
 
   _handleTrashClick() {
-    const trash = this._element.querySelector(".photo-grid__trash");
-    const heart = this._element.querySelector(".photo-grid__heart");
-    if (trash) trash.removeEventListener("click", this._onTrashClick);
-    if (heart) heart.removeEventListener("click", this._onLikeClick);
-    this._element.remove();
+    // Llamar a la función handleDeleteClick pasada desde fuera (que abrirá el popup de confirmación)
+    if (this._handleDeleteClick) {
+      this._handleDeleteClick(this._id, this._element);
+    }
   }
 
-  _handleLikeClick(evt) {
+  _handleLike(evt) {
     const el = evt.currentTarget;
-    el.classList.toggle("liked");
-    el.textContent = el.classList.contains("liked") ? "♥" : "♡";
+    // Llamar a la función handleLikeClick pasada desde fuera (que llamará a la API)
+    this._handleLikeClick(this._id, this._isLiked);
   }
 
   // Método que llama a la función handleCardClick pasada desde fuera
   _handleImageClick() {
     this._handleCardClick({ name: this._name, link: this._link });
+  }
+
+  // Método público para actualizar el estado de like
+  updateLikeState(isLiked) {
+    this._isLiked = isLiked;
+    this._setContent(); // Actualizar el icono del corazón
   }
 
   // método público: devuelve el nodo listo

@@ -28,11 +28,13 @@
       </header>
       <main class="content">
         <section class="profile" id="profile">
-          <img
-            src="images/avatar.png"
-            alt="Imagen de usuario"
-            class="profile__image"
-          />
+          <div class="profile__image-wrapper">
+            <img
+              src="images/avatar.png"
+              alt="Imagen de usuario"
+              class="profile__image"
+            />
+          </div>
           <div class="profile__info">
             <h2 class="profile__name">Jacques Cousteau</h2>
             <p class="profile__roll">Explorador</p>
@@ -161,6 +163,52 @@
               </form>
               <p class="image-popup__caption"></p>
             </div>
+          </div>
+        </dialog>
+
+        <dialog class="delete-popup">
+          <div class="delete-popup__content">
+            <h2 class="delete-popup__title">¿Estás seguro?</h2>
+            <div class="delete-popup__buttons">
+              <button
+                type="button"
+                class="delete-popup__button delete-popup__button_type_confirm"
+              >
+                Sí
+              </button>
+              <button
+                type="button"
+                class="delete-popup__button delete-popup__button_type_cancel"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </dialog>
+
+        <dialog class="avatar-popup">
+          <form method="dialog">
+            <button
+              class="avatar-popup__button-close"
+              aria-label="Cerrar"
+              value="cancel"
+            ></button>
+          </form>
+          <div class="avatar-popup__content">
+            <form class="avatar-popup__form" novalidate>
+              <label class="avatar-popup__header">Cambiar foto de perfil</label>
+              <input
+                type="url"
+                name="avatar"
+                class="form_input avatar-popup__input-avatar"
+                placeholder="Enlace a la nueva foto"
+                required
+              />
+              <span id="error-avatar" class="pop-up__error"></span>
+              <button type="submit" class="avatar-popup__button-save">
+                Guardar
+              </button>
+            </form>
           </div>
         </dialog>
       </main>

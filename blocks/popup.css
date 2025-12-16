@@ -1,5 +1,6 @@
 .pop-up,
-.card-popup {
+.card-popup,
+.avatar-popup {
   position: relative; /* Agregado para que el botón se posicione relativo al dialog */
   padding: 0;
   border-radius: 10px;
@@ -14,11 +15,13 @@
 }
 
 .pop-up:not([open]),
-.card-popup:not([open]) {
+.card-popup:not([open]),
+.avatar-popup:not([open]) {
   display: none;
 }
 .pop-up__content,
-.card-popup__content {
+.card-popup__content,
+.avatar-popup__content {
   position: relative;
   background-color: white;
   border-radius: 10px;
@@ -29,13 +32,18 @@
   overflow: hidden;
   box-sizing: border-box;
 }
+.avatar-popup__content {
+  height: 250px !important;
+}
 .pop-up__form,
-.card-popup__form {
+.card-popup__form,
+.avatar-popup__form {
   display: flex;
   flex-direction: column;
 }
 .pop-up__header,
-.card-popup__header {
+.card-popup__header,
+.avatar-popup__header {
   width: 330px;
   margin: 36px 64px 0 32px;
   color: black;
@@ -45,7 +53,8 @@
 .pop-up__input-name,
 .card-popup__place-title,
 .pop-up__input-about,
-.card-popup__img-Url {
+.card-popup__img-Url,
+.avatar-popup__input-avatar {
   max-width: 358px;
   max-height: 38px;
   font-size: 14px;
@@ -73,7 +82,8 @@
 }
 
 .pop-up__button-save,
-.card-popup__button-save {
+.card-popup__button-save,
+.avatar-popup__button-save {
   background-color: black;
   width: 358px;
   height: 51px;
@@ -84,7 +94,8 @@
   text-align: center;
 }
 .pop-up__button-save:hover,
-.card-popup__button-save:hover {
+.card-popup__button-save:hover,
+.avatar-popup__button-save:hover {
   opacity: 60%;
   color: #ffffff;
 }
@@ -101,7 +112,8 @@
 }
 
 .pop-up__button-close,
-.card-popup__button-close {
+.card-popup__button-close,
+.avatar-popup__button-close {
   background-image: url("../images/Close Icon.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -117,7 +129,8 @@
   cursor: pointer;
 }
 .pop-up__button-close:hover,
-.card-popup__button-close:hover {
+.card-popup__button-close:hover,
+.avatar-popup__button-close:hover {
   opacity: 60%;
 }
 
@@ -136,25 +149,29 @@
 }
 
 .pop-up::backdrop,
-.card-popup::backdrop {
+.card-popup::backdrop,
+.avatar-popup::backdrop {
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(2px);
 }
 
 @media screen and (max-width: 425px) {
   .pop-up__content,
-  .card-popup__content {
+  .card-popup__content,
+  .avatar-popup__content {
     width: 282px;
     height: 322px;
   }
   .pop-up__button-save,
-  .card-popup__button-save {
+  .card-popup__button-save,
+  .avatar-popup__button-save {
     width: 238px;
     height: 46px;
     margin: 0 auto 0 auto;
   }
   .pop-up__button-close,
-  .card-popup__button-close {
+  .card-popup__button-close,
+  .avatar-popup__button-close {
     top: -33px;
     right: -33px;
   }
